@@ -365,8 +365,19 @@ public class JsonPathTransformationProvider implements TransformationProvider<Js
                     JsonPath dstPath = JsonPath.compile(updated);
                     transformed = dstPath.set(configuration.jsonProvider().parse(inputObject),
                             srcValue, configuration);
-                } else {
-                    transformed = compiledDstPath.set(configuration.jsonProvider().parse(inputObject),
+                } else if (srcValue == null && pm.getDefaultValue() != null) { 
+                    String target = pm.getTarget(); 
+                    String updated = replaceWildCardWith(target, 0); 
+                    JsonPath dstPath = JsonPath.compile(updated); 
+                    if (first) { 
+                        //srcvalue is jsonarray 
+                        transformed = dstPath.set(configuration.jsonProvider().parse(inputObject), pm.getDefaultValue(), configuration); 
+                        first = false; 
+                    } else { 
+                        transformed = dstPath.set(transformed, pm.getDefaultValue(), configuration); 
+                    }
+                 } else {
+                        transformed = compiledDstPath.set(configuration.jsonProvider().parse(inputObject),
                             srcValue, configuration);
                 }
             } else {
