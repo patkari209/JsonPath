@@ -287,6 +287,13 @@ public class JsonPathTransformationProvider implements TransformationProvider<Js
                     // TODO: log here. we are going to ignore any additionalTransform as well.
                     return transformed;
                 }
+            } else if (srcValue instanceof LinkedHashMap) { 
+                // now check instance of LinkedHashMap if yes process it and convert it to other map 
+                // direct mapping no conversion 
+                Map<String, Object> linkedHashMap = (Map) srcValue; 
+                Map<String, Object> transformedMap = new HashMap<>(); 
+                LinkedHashMap.entrySet().stream().forEach(Entry<String, Object> data -> transformedMap.put(data.getKey(), data.getValue())); 
+                return transformedMap;
             } else {
                 throw new TransformationException(
                         getStringFromBundle(SOURCE_NOT_SCALAR, srcPath, srcValue.getClass().getName()));
