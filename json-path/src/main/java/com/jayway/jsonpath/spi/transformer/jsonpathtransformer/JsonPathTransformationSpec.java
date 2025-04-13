@@ -10,6 +10,7 @@ import com.jayway.jsonpath.spi.transformer.jsonpathtransformer.model.*;
 
 import static com.jayway.jsonpath.spi.transformer.jsonpathtransformer.model.JsonPathTransformerValidationError.*;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -347,7 +348,7 @@ public class JsonPathTransformationSpec implements TransformationSpec {
     }
 
     private static final Set<Class> WRAPPER_TYPES = new HashSet<Class>(
-            Arrays.asList(Integer.class, Boolean.class, Float.class, Double.class, String.class,
+            Arrays.asList(BigDecimal.class, Integer.class, Boolean.class, Float.class, Double.class, String.class,
                     Character.class, Byte.class, Short.class, Long.class));
 
     /*package*/
